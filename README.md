@@ -1,4 +1,4 @@
-# 🏗️ PIR 2025 — Prédiction de Données Manquantes dans les Bases de Données de Bâti
+# 🏗️ PIR 2025 — Prédiction de données manquantes dans les bases de données de bâti
 
 Projet d'Initiation à la Recherche (PIR) — 2025  
 **Objectif** : Développer des méthodes de **prédiction des données manquantes** dans des bases de données liées au bâti.
