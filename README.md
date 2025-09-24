@@ -8,7 +8,7 @@ Projet d'Initiation à la Recherche (PIR) — 2025
 ## 🧪 Laboratoire
 
 **LASTIG** — Laboratoire en Sciences et Technologies de l’Information Géographique  
-📍 [ENSG - École Nationale des Sciences Géographiques](https://ensg.ign.fr/)
+📍 [ENSG - École Nationale des Sciences Géographiques](https://ensg.eu/)
 
 ---
 
