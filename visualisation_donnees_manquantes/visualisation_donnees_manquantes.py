@@ -14,32 +14,29 @@ nb_bat_ok_par_categorie_norm = []
 for nat in natures_bat:
     bat_nat = BD_Paris.query(f"USAGE1 == '{nat}'")
     nb_tot = len(bat_nat)
-    bat_complet = bat_nat[(bat_nat["NB_LOGTS"].notnull()) & (bat_nat["NB_ETAGES"].notnull()) & (bat_nat["MAT_MURS"].notnull()) & (bat_nat["MAT_TOITS"].notnull()) & (bat_nat["HAUTEUR"].notnull())]
+    if nat == 'Résidentiel': # cas particulier des bâtiments résidentiels : valeur 0 équivaut à NULL
+        bat_complet = bat_nat[(bat_nat["NB_LOGTS"].notnull()) & (bat_nat["NB_LOGTS"] != 0) & (bat_nat["NB_ETAGES"].notnull()) & (bat_nat["NB_ETAGES"] != 0) & (bat_nat["MAT_MURS"].notnull()) & (bat_nat["MAT_TOITS"].notnull()) & (bat_nat["HAUTEUR"].notnull()) & (bat_nat["HAUTEUR"] != 0)]
+    else:
+        bat_complet = bat_nat[(bat_nat["NB_LOGTS"].notnull()) & (bat_nat["NB_ETAGES"].notnull()) & (bat_nat["MAT_MURS"].notnull()) & (bat_nat["MAT_TOITS"].notnull()) & (bat_nat["HAUTEUR"].notnull())]
     nb_complet = len(bat_complet)
     nb_bat_par_categorie.append(nb_tot)
     nb_bat_ok_par_categorie.append(nb_complet)
-    nb_bat_ok_par_categorie_norm.append(nb_complet / nb_tot)
+    nb_bat_ok_par_categorie_norm.append(nb_complet / nb_tot * 100) # pourcentage
     
 # Focus sur les bâtiments résidentiels
 bat_resi = BD_Paris.query("USAGE1 == 'Résidentiel'")
-nb_param_null = []
-param_null_norm = []
+nb_resi_ok = []
+resi_ok_norm = []
 for param in param_interet:
-    nb_null = bat_resi[bat_resi[f'{param}'].isnull()]
-    nb_param_null.append(len(nb_null))
-    param_null_norm.append(len(nb_null)/nb_bat_ok_par_categorie[6])
+    if param == "NB_LOGTS" or param == "NB_ETAGES" or param == "HAUTEUR": # valeur 0 équivaut à NULL
+        nb_null = bat_resi[(bat_resi[f'{param}'].isnull()) | (bat_resi[f'{param}'] == 0)] # bâtiments où le paramètre est manquant
+    else:
+        nb_null = bat_resi[(bat_resi[f'{param}'].isnull())]
+    nb_resi_ok.append(nb_bat_par_categorie[6] - len(nb_null)) # nb bâtiments avec paramètre renseigné
+    resi_ok_norm.append((nb_bat_par_categorie[6] -len(nb_null)) / nb_bat_par_categorie[6] * 100) # pourcentage de bâtiments avec paramètre renseigné
     
       
 # Affichages graphiques
-plt.figure()
-plt.bar(param_interet, nb_param_null_1)
-plt.title("Fréquence d'apparition de données manquantes")
-
-plt.figure()
-plt.bar(param_interet, param_null_norm_1)
-plt.title("Pourcentage d'apparition de données manquantes")
-plt.plot()
-
 plt.figure()
 plt.barh(natures_bat, nb_bat_ok_par_categorie)
 plt.title("Fréquence de bâtiments bien renseignés par catégorie")
@@ -48,4 +45,13 @@ plt.plot()
 plt.figure()
 plt.barh(natures_bat, nb_bat_ok_par_categorie_norm)
 plt.title("Pourcentage de bâtiments bien renseignés par catégorie")
+plt.plot()
+
+plt.figure()
+plt.bar(param_interet, nb_resi_ok)
+plt.title("Fréquence d'apparition de données bien renseignées (Résidentiel)")
+
+plt.figure()
+plt.bar(param_interet, resi_ok_norm)
+plt.title("Pourcentage d'apparition de données bien renseignées (Résidentiel)")
 plt.plot()
