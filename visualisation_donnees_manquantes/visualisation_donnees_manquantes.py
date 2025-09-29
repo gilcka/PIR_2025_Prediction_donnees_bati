@@ -29,11 +29,11 @@ nb_resi_ok = []
 resi_ok_norm = []
 for param in param_interet:
     if param == "NB_LOGTS" or param == "NB_ETAGES" or param == "HAUTEUR": # valeur 0 équivaut à NULL
-        nb_null = bat_resi[(bat_resi[f'{param}'].isnull()) | (bat_resi[f'{param}'] == 0)] # bâtiments où le paramètre est manquant
+        resi_null = bat_resi[(bat_resi[f'{param}'].isnull()) | (bat_resi[f'{param}'] == 0)] # bâtiments où le paramètre est manquant
     else:
-        nb_null = bat_resi[(bat_resi[f'{param}'].isnull())]
-    nb_resi_ok.append(nb_bat_par_categorie[6] - len(nb_null)) # nb bâtiments avec paramètre renseigné
-    resi_ok_norm.append((nb_bat_par_categorie[6] -len(nb_null)) / nb_bat_par_categorie[6] * 100) # pourcentage de bâtiments avec paramètre renseigné
+        resi_null = bat_resi[(bat_resi[f'{param}'].isnull())]
+    nb_resi_ok.append(nb_bat_par_categorie[6] - len(resi_null)) # nb bâtiments avec paramètre renseigné
+    resi_ok_norm.append((nb_bat_par_categorie[6] -len(resi_null)) / nb_bat_par_categorie[6] * 100) # pourcentage de bâtiments avec paramètre renseigné
     
       
 # Affichages graphiques
