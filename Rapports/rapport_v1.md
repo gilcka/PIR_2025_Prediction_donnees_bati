@@ -21,7 +21,7 @@ En revanche, pour toutes les autres catégories, le taux de remplissage correct 
 On s'intéresse ensuite plus particulièrement au cas des bâtiments résidentiels, où le renseignement de nos 5 critères est le plus essentiel.\
 Cela permet, par exemple, d'estimer la population y résidant (nombre de logements, d'étages), ou d'identifier les bâtiments mal équipés contre les fortes chaleurs (matériaux des murs et du toit).\
 \
-On observe alors, pour chaque paramètre, le nombre de bâtiments résidentiels où il est correctement renseigné (une valeur égale à 0 étant considérée comme NULL) :\
+On observe alors, pour chaque paramètre, le nombre de bâtiments résidentiels où il est correctement renseigné :\
 \
  ![](./img/rv1_img3.png)\
 \
