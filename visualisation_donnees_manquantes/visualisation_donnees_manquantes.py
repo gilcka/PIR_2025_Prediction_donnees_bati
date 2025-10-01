@@ -1,3 +1,4 @@
+import numpy as np
 import geopandas as gpd
 import matplotlib.pyplot as plt
 
@@ -35,7 +36,29 @@ for param in param_interet:
     nb_resi_ok.append(nb_bat_par_categorie[6] - len(resi_null)) # nb bâtiments avec paramètre renseigné
     resi_ok_norm.append((nb_bat_par_categorie[6] -len(resi_null)) / nb_bat_par_categorie[6] * 100) # pourcentage de bâtiments avec paramètre renseigné
     
-      
+
+# Nombre d'attributs manquants pour chaque bâtiment résidentiel
+bat_resi_array = np.array(bat_resi)
+nb_i_manquants = [0 for i in range(6)] # contient le nombre de bâtiments avec i données manquantes (i = indice)
+for bat in bat_resi_array:
+    nb_donnees_manquantes = 0
+    if bat[16] == None or not bat[16] > 0: # NB_LOGTS
+        nb_donnees_manquantes += 1
+    if bat[17] == None or not bat[17] > 0: # NB_ETAGES
+        nb_donnees_manquantes += 1
+    if bat[18] == None: # MAT_MURS
+        nb_donnees_manquantes += 1
+    if bat[19] == None: # MAT_TOITS
+        nb_donnees_manquantes += 1
+    if bat[20] == None or not bat[20] > 0: # HAUTEUR
+        nb_donnees_manquantes += 1
+    nb_i_manquants[nb_donnees_manquantes] += 1
+    
+i_manquants_norm = [] # contient la même information sous forme de pourcentage
+for val in nb_i_manquants:
+    i_manquants_norm.append(val / nb_bat_par_categorie[6] * 100)
+
+    
 # Affichages graphiques
 plt.figure()
 plt.barh(natures_bat, nb_bat_ok_par_categorie)
@@ -54,4 +77,18 @@ plt.title("Fréquence d'apparition de données bien renseignées (Résidentiel)"
 plt.figure()
 plt.bar(param_interet, resi_ok_norm)
 plt.title("Pourcentage d'apparition de données bien renseignées (Résidentiel)")
+plt.plot()
+
+plt.figure()
+plt.bar(range(6), nb_i_manquants)
+plt.title("Nombre de données manquantes sur les bâtiments résidentiels (fréquence)")
+plt.xlabel("Nombre de critères manquants")
+plt.ylabel("Nombre de bâtiments")
+plt.plot()
+
+plt.figure()
+plt.bar(range(6), i_manquants_norm)
+plt.title("Nombre de données manquantes sur les bâtiments résidentiels (pourcentage)")
+plt.xlabel("Nombre de critères manquants")
+plt.ylabel("% de bâtiments")
 plt.plot()
