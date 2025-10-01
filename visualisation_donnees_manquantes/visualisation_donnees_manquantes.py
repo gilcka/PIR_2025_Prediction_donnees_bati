@@ -15,10 +15,7 @@ nb_bat_ok_par_categorie_norm = []
 for nat in natures_bat:
     bat_nat = BD_Paris.query(f"USAGE1 == '{nat}'")
     nb_tot = len(bat_nat)
-    if nat == 'Résidentiel': # cas particulier des bâtiments résidentiels : valeur 0 équivaut à NULL
-        bat_complet = bat_nat[(bat_nat["NB_LOGTS"].notnull()) & (bat_nat["NB_LOGTS"] != 0) & (bat_nat["NB_ETAGES"].notnull()) & (bat_nat["NB_ETAGES"] != 0) & (bat_nat["MAT_MURS"].notnull()) & (bat_nat["MAT_TOITS"].notnull()) & (bat_nat["HAUTEUR"].notnull()) & (bat_nat["HAUTEUR"] != 0)]
-    else:
-        bat_complet = bat_nat[(bat_nat["NB_LOGTS"].notnull()) & (bat_nat["NB_ETAGES"].notnull()) & (bat_nat["MAT_MURS"].notnull()) & (bat_nat["MAT_TOITS"].notnull()) & (bat_nat["HAUTEUR"].notnull())]
+    bat_complet = bat_nat[(bat_nat["NB_LOGTS"].notnull()) & (bat_nat["NB_ETAGES"].notnull()) & (bat_nat["MAT_MURS"].notnull()) & (bat_nat["MAT_TOITS"].notnull()) & (bat_nat["HAUTEUR"].notnull())]
     nb_complet = len(bat_complet)
     nb_bat_par_categorie.append(nb_tot)
     nb_bat_ok_par_categorie.append(nb_complet)
@@ -29,10 +26,7 @@ bat_resi = BD_Paris.query("USAGE1 == 'Résidentiel'")
 nb_resi_ok = []
 resi_ok_norm = []
 for param in param_interet:
-    if param == "NB_LOGTS" or param == "NB_ETAGES" or param == "HAUTEUR": # valeur 0 équivaut à NULL
-        resi_null = bat_resi[(bat_resi[f'{param}'].isnull()) | (bat_resi[f'{param}'] == 0)] # bâtiments où le paramètre est manquant
-    else:
-        resi_null = bat_resi[(bat_resi[f'{param}'].isnull())]
+    resi_null = bat_resi[(bat_resi[f'{param}'].isnull())]
     nb_resi_ok.append(nb_bat_par_categorie[6] - len(resi_null)) # nb bâtiments avec paramètre renseigné
     resi_ok_norm.append((nb_bat_par_categorie[6] -len(resi_null)) / nb_bat_par_categorie[6] * 100) # pourcentage de bâtiments avec paramètre renseigné
     
@@ -42,15 +36,15 @@ bat_resi_array = np.array(bat_resi)
 nb_i_manquants = [0 for i in range(6)] # contient le nombre de bâtiments avec i données manquantes (i = indice)
 for bat in bat_resi_array:
     nb_donnees_manquantes = 0
-    if bat[16] == None or not bat[16] > 0: # NB_LOGTS
+    if bat[16] == None or not bat[16] >= 0: # NB_LOGTS
         nb_donnees_manquantes += 1
-    if bat[17] == None or not bat[17] > 0: # NB_ETAGES
+    if bat[17] == None or not bat[17] >= 0: # NB_ETAGES
         nb_donnees_manquantes += 1
     if bat[18] == None: # MAT_MURS
         nb_donnees_manquantes += 1
     if bat[19] == None: # MAT_TOITS
         nb_donnees_manquantes += 1
-    if bat[20] == None or not bat[20] > 0: # HAUTEUR
+    if bat[20] == None or not bat[20] >= 0: # HAUTEUR
         nb_donnees_manquantes += 1
     nb_i_manquants[nb_donnees_manquantes] += 1
     
