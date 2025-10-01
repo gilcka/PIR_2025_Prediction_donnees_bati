@@ -29,5 +29,20 @@ Et on calcule le pourcentage :\
 \
  ![](./img/rv1_img4.png)\
 \
-Nous pouvons en conclure que les 4 premiers paramètres sont renseignés dans environ 70% des cas, et un peu plus pour la hauteur (+ de 80%).\
-Ainsi, en moyenne, près d'1/3 des bâtiments résidentiels à Paris ont au moins un critère manquant parmi les 5 que nous étudions.
+Nous en déduisons que les 4 premiers paramètres sont renseignés dans environ 70% des cas, et 90% des cas pour la hauteur.\
+\
+Pour savoir s'il y a des corrélations entre les attributs manquants, nous déterminons le nombre de bâtiments résidentiels où il en manque 0, 1, ..., jusqu'à 5 sur les 5 que nous étudions.\
+On obtient les résultats suivants :\
+\
+ ![](./img/rv1_img5.png)\
+\
+Soit en pourcentage :\
+\
+ ![](./img/rv1_img6.png)\
+\
+Comme nous l'avions constaté précédemment, environ 70% de ces bâtiments ont leurs 5 attributs renseignés.\
+En revanche, on observe qu'environ 20% d'entre eux ont 4 attributs manquants, et 10% en ont 5.\
+\
+Or nous avions vu que dans 30% des cas, chacun des 4 premiers paramètres (nombre de logements, d'étages, matériau des murs et du toit) était manquant ; et la hauteur dans 10% des cas.\
+Nous pouvons alors supposer qu'il y a une corrélation entre l'absence des 4 premiers paramètres sur le bâti résidentiel de la BD TOPO, avec 1 fois sur 2 la hauteur qui est également manquante.
+
