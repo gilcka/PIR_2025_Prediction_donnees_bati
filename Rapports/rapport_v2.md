@@ -1,6 +1,6 @@
 # Rapport d'avancement - 2ème semaine
 
-Pendant cette 2ème semaine de projet, nous testons différentes méthodes d'imputation de données manquantes avec Scikit-Learn, pour la prédiction de hauteurs manquantes sur les bâtiments résidentiels à Paris.
+Pendant cette 2ème semaine de projet, nous testons différentes méthodes d'imputation de données manquantes avec Scikit-Learn, pour la prédiction de hauteurs sur les bâtiments résidentiels à Paris.
 
 ## 1. Visualisation géographique de la répartition du nombre d'attributs manquants à Paris
 
@@ -20,7 +20,7 @@ Nous avons réalisé 6 cartes pour visualiser la localisation des bâtiments ré
 \
 On peut constater que la présence d'attributs manquants est répartie de façon homogène sur le territoire parisien.\
 \
-Cependant, on identifie quelques spécificités locales :
+Cependant, on identifie quelques particularités locales :
   - les bâtiments où il manque 2 attributs sont essentiellement dans le centre historique de Paris ;
   - ceux où il manque 4 ou 5 attributs sont plutôt dans les arrondissements périphériques et en banlieue.
 
@@ -46,6 +46,19 @@ On obtient finalement les erreurs suivantes :
   - **RMSE :** 6.8
   - **MAE :** 5.4 m
 
-### Imputation multivariée (K-NN)
+### Imputation par plus proche voisins (K-NN)
 
-L'imputation multivariée permet de prendre en compte davantage de facteurs pour rendre la prédiction plus précise : ...
+L'imputation par K-NN permet de prendre en compte davantage de facteurs pour rendre la prédiction plus précise : on peut par exemple utiliser la position géographique d'un bâtiment pour observer ceux aux alentours et supposer qu'ils ont des caractéristiques proches.\
+Pour réaliser cela, on calcule pour chaque bâtiment son centroïde et on ajoute ses coordonnées (x, y) comme 2 nouveaux attributs.\
+On utilise ensuite l'algorithme d'imputation par plus proches voisins de Scikit-Learn, avec les mêmes jeux de données que précédemment, en testant différentes valeurs du nombre de voisins.\
+\
+Les résultats sont les suivants :\
+\
+![](./img/rv2_img7.png)\
+\
+![](./img/rv2_img8.png)\
+\
+On constate que la précision s'améliore en augmentant le nombre de voisins jusqu'à 3, puis stagne avant de commencer à se dégrader à partir de 7 voisins.\
+Ainsi, avec 3 voisins, on obtient une MAE de 3.0 m soit une réduction d'erreur en moyenne de 2.4 m (l'équivalent d'environ 1 étage) par rapport à la méthode précédente.\
+\
+L'imputation par plus proches voisins est donc, dans le cas de Paris, significativement plus efficace que l'imputation univariée.
