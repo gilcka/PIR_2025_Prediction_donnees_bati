@@ -28,10 +28,8 @@ Directeur de recherche junior, LASTIG / IGN
 
 ## 🗂️ Structure du dépôt
 
+- **Code :** code Python du projet, semaine par semaine
 - **Rapports :** rapports d'avancement du projet, semaine par semaine
-- **visualisation_donnees_manquantes :** code Python du projet
-  > ⚠ Pour faire fonctionner le programme, la bibliothèque Python *geopandas* est nécessaire.\
-  > ⚠ Il faut aussi télécharger la BD TOPO (https://geoservices.ign.fr/bdtopo) sur la zone d'étude et déposer le dossier extrait dans ce répertoire.
 
 ---
 
