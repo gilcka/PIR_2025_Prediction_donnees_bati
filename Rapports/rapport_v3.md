@@ -2,12 +2,24 @@
 
 Pendant cette 3ème semaine de projet, nous nous concentrons sur l'imputation par plus proches voisins, en essayant de pousser plus loin l'interprétation des résultats obtenus et d'améliorer la méthode.
 
-| Colonne 1 | Colonne 2 | Colonne 3 |
-|:---------:|:---------:|:---------:|
-| 1 | 2 | ![](./img/rv2_img1.png) |
-
-
 ## 1. Interprétation des résultats : R² et histogrammes
+
+Nous avons réalisé une nouvelle série de prédictions par plus proches voisins, en calculant cette fois-ci en plus le coefficient de détermination R² de l'estimation.\
+Par ailleurs, nous avons ajouté à chaque prédiction l'histogramme des hauteurs prédites, afin de comparer leur répartition avec la réalité.\
+Les résultats de cette nouvelle estimation sont compilés dans le tableau suivant :
+
+| k-NN | RMSE | MAE | R² | Prédiction | Réalité |
+|:---------:|:---------:|:---------:|:---------:|:---------:|:---------:|
+| 1 | 4.5 | 2.5 m | 0.56 | ![](./img/rv3_img1.png) | ![](./img/rv3_img0.png) |
+| 2 | 4.1 | 2.4 m | 0.64 | ![](./img/rv3_img2.png) | ![](./img/rv3_img0.png) |
+| 3 | 4.0 | 2.4 m | 0.65 | ![](./img/rv3_img3.png) | ![](./img/rv3_img0.png) |
+| 4 | 4.0 | 2.5 m | 0.65 | ![](./img/rv3_img4.png) | ![](./img/rv3_img0.png) |
+| 5 | 4.0 | 2.5 m | 0.66 | ![](./img/rv3_img5.png) | ![](./img/rv3_img0.png) |
+| 6 | 4.0 | 2.5 m | 0.65 | ![](./img/rv3_img6.png) | ![](./img/rv3_img0.png) |
+| 7 | 4.0 | 2.5 m | 0.65 | ![](./img/rv3_img7.png) | ![](./img/rv3_img0.png) |
+| 8 | 4.1 | 2.6 m | 0.65 | ![](./img/rv3_img8.png) | ![](./img/rv3_img0.png) |
+| 9 | 4.1 | 2.6 m | 0.64 | ![](./img/rv3_img9.png) | ![](./img/rv3_img0.png) |
+| 10 | 4.1 | 2.6 m | 0.64 | ![](./img/rv3_img10.png) | ![](./img/rv3_img0.png) |
 
 Nous avons réalisé 6 cartes pour visualiser la localisation des bâtiments résidentiels en fonction du nombre d'attributs qui leur manque :\
 \
