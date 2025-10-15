@@ -21,61 +21,24 @@ Les résultats de cette nouvelle estimation sont compilés dans le tableau suiva
 | 9 | 4.1 | 2.6 m | 0.64 | ![](./img/rv3_img9.png) | ![](./img/rv3_img0.png) |
 | 10 | 4.1 | 2.6 m | 0.64 | ![](./img/rv3_img10.png) | ![](./img/rv3_img0.png) |
 
-Nous avons réalisé 6 cartes pour visualiser la localisation des bâtiments résidentiels en fonction du nombre d'attributs qui leur manque :\
-\
-![](./img/rv2_img1.png)\
-\
-![](./img/rv2_img2.png)\
-\
-![](./img/rv2_img3.png)\
-\
-![](./img/rv2_img4.png)\
-\
-![](./img/rv2_img5.png)\
-\
-![](./img/rv2_img6.png)\
-\
-On peut constater que la présence d'attributs manquants est répartie de façon homogène sur le territoire parisien.\
-\
-Cependant, on identifie quelques particularités locales :
-  - les bâtiments où il manque 2 attributs sont essentiellement dans le centre historique de Paris ;
-  - ceux où il manque 4 ou 5 attributs sont plutôt dans les arrondissements périphériques et en banlieue.
 
-## 2. Prédiction de la hauteur des bâtiments
+## 2. Ajout d'un nouvel attribut dans le calcul
 
-Nous avons testé l'imputation de données manquantes avec la bibliothèque Scikit-Learn sur Python, dans un premier temps pour la prédiction de la hauteur des bâtiments.\
-On commence par cet attribut en particulier car il prend des valeurs continues, ce qui rend l'estimation plus simple à implémenter qu'avec des valeurs discrètes.\
-\
-Pour cela, nous avons extrait de la BD TOPO sur Paris les bâtiments résidentiels pour lesquels tous les attributs sont renseignés (ceux en rouge sur la première carte).\
-Nous avons classé ces bâtiments en 2 jeux de données :
-  - un "jeu d'entraînement" où la hauteur est connue (80% du total) ;
-  - un "jeu de test" où l'on supprime volontairement cet attribut (20% du total).
+Pour essayer d'améliorer le résultat de l'estimation, nous avons ensuite intégré un nouvel attribut de surface pour chaque bâtiment résidentiel, calculé directement avec QGIS.\
+Ainsi, l'algorithme doit désormais prédire la hauteur en observant les bâtiments les plus proches géographiquement, mais aussi ceux dont la surface est similaire.\
+Dans un premier temps, nous avons choisi d'affecter le même poids pour ce nouvel attribut que pour les coordonnées ; la formule de distance à minimiser devient donc, pour 2 bâtiments de centroïdes $(x_i, y_i)$ et de surface $s_i$ :
+<p align="center">$d = \sqrt{(x_1 - x_2)² + (y_1 - y_2)² + (s_1 - s_2)²}$</p>
 
-L'objectif est de prédire la hauteur des bâtiments du jeu de test, puis de comparer la prédiction avec la hauteur réelle connue.\
-On utilise 2 mesures d'erreur : la RMSE (Root Mean Square Error) qui mesure la racine des écarts au carré, et la MAE (Mean Absolute Error) qui mesure (en m) les écarts en valeurs absolues.
+Par manque de temps, nous n'avons pu réaliser la prédiction que pour 1 à 4 voisins, et sur 2 répartitions de jeux de données (train / test) différentes :\
 
-### Imputation univariée (moyenne)
+1er jeu de données
+| k-NN | RMSE | MAE | R² | Prédiction | Réalité |
+|:---------:|:---------:|:---------:|:---------:|:---------:|:---------:|
+| 1 | 4.9 | 3.0 m | 0.47 | ![](./img/rv3_img12.png) | ![](./img/rv3_img11.png) |
+| 2 | 4.4 | 2.8 m | 0.59 | ![](./img/rv3_img13.png) | ![](./img/rv3_img11.png) |
 
-Avec l'imputation univariée, l'algorithme affecte à chacun des bâtiments du jeu de test la moyenne des hauteurs connues du jeu d'entraînement.\
-Cette méthode est relativement simple à mettre en œuvre, mais peu précise. En effet, elle ne prend pas en compte les caractéristiques des bâtiments qui peuvent varier entre les différents quartiers de la ville.\
-\
-On obtient finalement les erreurs suivantes :
-  - **RMSE :** 6.8
-  - **MAE :** 5.4 m
-
-### Imputation par plus proche voisins (K-NN)
-
-L'imputation par K-NN permet de prendre en compte davantage de facteurs pour rendre la prédiction plus précise : on peut par exemple utiliser la position géographique d'un bâtiment pour observer ceux aux alentours et supposer qu'ils ont des caractéristiques proches.\
-Pour réaliser cela, on calcule pour chaque bâtiment son centroïde et on ajoute ses coordonnées (x, y) comme 2 nouveaux attributs.\
-On utilise ensuite l'algorithme d'imputation par plus proches voisins de Scikit-Learn, avec les mêmes jeux de données que précédemment, en testant différentes valeurs du nombre de voisins.\
-\
-Les résultats sont les suivants :\
-\
-![](./img/rv2_img7.png)\
-\
-![](./img/rv2_img8.png)\
-\
-On constate que la précision s'améliore en augmentant le nombre de voisins jusqu'à 3, puis stagne avant de commencer à se dégrader à partir de 7 voisins.\
-Ainsi, avec 3 voisins, on obtient une MAE de 3.0 m soit une réduction d'erreur en moyenne de 2.4 m (l'équivalent d'environ 1 étage) par rapport à la méthode précédente.\
-\
-L'imputation par plus proches voisins est donc, dans le cas de Paris, significativement plus efficace que l'imputation univariée.
+2ème jeu de données
+| k-NN | RMSE | MAE | R² | Prédiction | Réalité |
+|:---------:|:---------:|:---------:|:---------:|:---------:|:---------:|
+| 3 | 4.2 | 2.7 m | 0.62 | ![](./img/rv3_img15.png) | ![](./img/rv3_img14.png) |
+| 4 | 4.2 | 2.7 m | 0.63 | ![](./img/rv3_img16.png) | ![](./img/rv3_img14.png) |
