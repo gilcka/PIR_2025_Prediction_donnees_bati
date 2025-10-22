@@ -78,4 +78,59 @@ On obtient les résultats suivants :
 | **0.4** | 3.8 | 1.7 m | 3.4 m | 14.5 m | 0.67 | ![](./img/rv4/pred_k5_lambd0.4.png) |
 | **0.6** | 3.7 | 1.7 m | 3.4 m | 14.4 m | 0.67 | ![](./img/rv4/pred_k5_lambd0.6.png) |
 | **0.8** | 3.7 | 1.6 m | 3.3 m | 14.7 m | 0.68 | ![](./img/rv4/pred_k5_lambd0.8.png) |
-| **1** |  |  |  |  |  |  |
+| **1** | 4.0 | 1.7 m | 3.5 m | 17.2 m | 0.63 | ![](./img/rv4/pred_k5_lambd1.0.png) |
+
+\
+**6-NN**
+| $\lambda$ | RMSE | MAE (-10) | MAE (10-30) | MAE (+30) | R² | Prédiction |
+|:---------:|:---------:|:---------:|:---------:|:---------:|:---------:|:---------:|
+| **0** |  |  m |  m |  m |  | ![](./img/rv4/pred_k6_lambd0.0.png) |
+| **0.2** |  |  m |  m |  m |  | ![](./img/rv4/pred_k6_lambd0.2.png) |
+| **0.4** |  |  m |  m |  m |  | ![](./img/rv4/pred_k6_lambd0.4.png) |
+| **0.6** |  |  m |  m |  m |  | ![](./img/rv4/pred_k6_lambd0.6.png) |
+| **0.8** |  |  m |  m |  m |  | ![](./img/rv4/pred_k6_lambd0.8.png) |
+| **1** |  |  m |  m |  m |  | ![](./img/rv4/pred_k6_lambd1.0.png) |
+
+\
+**7-NN**
+| $\lambda$ | RMSE | MAE (-10) | MAE (10-30) | MAE (+30) | R² | Prédiction |
+|:---------:|:---------:|:---------:|:---------:|:---------:|:---------:|:---------:|
+| **0** |  |  m |  m |  m |  | ![](./img/rv4/pred_k7_lambd0.0.png) |
+| **0.2** |  |  m |  m |  m |  | ![](./img/rv4/pred_k7_lambd0.2.png) |
+| **0.4** |  |  m |  m |  m |  | ![](./img/rv4/pred_k7_lambd0.4.png) |
+| **0.6** |  |  m |  m |  m |  | ![](./img/rv4/pred_k7_lambd0.6.png) |
+| **0.8** |  |  m |  m |  m |  | ![](./img/rv4/pred_k7_lambd0.8.png) |
+| **1** |  |  m |  m |  m |  | ![](./img/rv4/pred_k7_lambd1.0.png) |
+
+\
+**8-NN**
+| $\lambda$ | RMSE | MAE (-10) | MAE (10-30) | MAE (+30) | R² | Prédiction |
+|:---------:|:---------:|:---------:|:---------:|:---------:|:---------:|:---------:|
+| **0** |  |  m |  m |  m |  | ![](./img/rv4/pred_k8_lambd0.0.png) |
+| **0.2** |  |  m |  m |  m |  | ![](./img/rv4/pred_k8_lambd0.2.png) |
+| **0.4** |  |  m |  m |  m |  | ![](./img/rv4/pred_k8_lambd0.4.png) |
+| **0.6** |  |  m |  m |  m |  | ![](./img/rv4/pred_k8_lambd0.6.png) |
+| **0.8** |  |  m |  m |  m |  | ![](./img/rv4/pred_k8_lambd0.8.png) |
+| **1** |  |  m |  m |  m |  | ![](./img/rv4/pred_k8_lambd1.0.png) |
+
+\
+**9-NN**
+| $\lambda$ | RMSE | MAE (-10) | MAE (10-30) | MAE (+30) | R² | Prédiction |
+|:---------:|:---------:|:---------:|:---------:|:---------:|:---------:|:---------:|
+| **0** |  |  m |  m |  m |  | ![](./img/rv4/pred_k9_lambd0.0.png) |
+| **0.2** |  |  m |  m |  m |  | ![](./img/rv4/pred_k9_lambd0.2.png) |
+| **0.4** |  |  m |  m |  m |  | ![](./img/rv4/pred_k9_lambd0.4.png) |
+| **0.6** |  |  m |  m |  m |  | ![](./img/rv4/pred_k9_lambd0.6.png) |
+| **0.8** |  |  m |  m |  m |  | ![](./img/rv4/pred_k9_lambd0.8.png) |
+| **1** |  |  m |  m |  m |  | ![](./img/rv4/pred_k9_lambd1.0.png) |
+
+\
+**10-NN**
+| $\lambda$ | RMSE | MAE (-10) | MAE (10-30) | MAE (+30) | R² | Prédiction |
+|:---------:|:---------:|:---------:|:---------:|:---------:|:---------:|:---------:|
+| **0** |  |  m |  m |  m |  | ![](./img/rv4/pred_k10_lambd0.0.png) |
+| **0.2** |  |  m |  m |  m |  | ![](./img/rv4/pred_k10_lambd0.2.png) |
+| **0.4** |  |  m |  m |  m |  | ![](./img/rv4/pred_k10_lambd0.4.png) |
+| **0.6** |  |  m |  m |  m |  | ![](./img/rv4/pred_k10_lambd0.6.png) |
+| **0.8** |  |  m |  m |  m |  | ![](./img/rv4/pred_k10_lambd0.8.png) |
+| **1** |  |  m |  m |  m |  | ![](./img/rv4/pred_k10_lambd1.0.png) |
