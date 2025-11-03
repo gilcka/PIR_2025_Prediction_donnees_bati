@@ -84,34 +84,34 @@ On obtient les résultats suivants :
 **6-NN**
 | $\lambda$ | RMSE | MAE (-10) | MAE (10-30) | MAE (+30) | R² | Prédiction |
 |:---------:|:---------:|:---------:|:---------:|:---------:|:---------:|:---------:|
-| **0** |  |  m |  m |  m |  | ![](./img/rv4/pred_k6_lambd0.0.png) |
-| **0.2** |  |  m |  m |  m |  | ![](./img/rv4/pred_k6_lambd0.2.png) |
-| **0.4** |  |  m |  m |  m |  | ![](./img/rv4/pred_k6_lambd0.4.png) |
-| **0.6** |  |  m |  m |  m |  | ![](./img/rv4/pred_k6_lambd0.6.png) |
-| **0.8** |  |  m |  m |  m |  | ![](./img/rv4/pred_k6_lambd0.8.png) |
-| **1** |  |  m |  m |  m |  | ![](./img/rv4/pred_k6_lambd1.0.png) |
+| **0** | 5.4 | 2.7 m | 5.6 m | 21.0 m | 0.31 | ![](./img/rv4/pred_k6_lambd0.0.png) |
+| **0.2** | 3.8 | 1.7 m | 3.5 m | 15.2 m | 0.66 | ![](./img/rv4/pred_k6_lambd0.2.png) |
+| **0.4** | 3.8 | 1.7 m | 3.4 m | 14.8 m | 0.67 | ![](./img/rv4/pred_k6_lambd0.4.png) |
+| **0.6** | 3.7 | 1.7 m | 3.4 m | 14.9 m | 0.68 | ![](./img/rv4/pred_k6_lambd0.6.png) |
+| **0.8** | 3.7 | 1.6 m | 3.4 m | 15.0 m | 0.68 | ![](./img/rv4/pred_k6_lambd0.8.png) |
+| **1** | 4.0 | 1.7 m | 3.6 m | 17.7 m | 0.63 | ![](./img/rv4/pred_k6_lambd1.0.png) |
 
 \
 **7-NN**
 | $\lambda$ | RMSE | MAE (-10) | MAE (10-30) | MAE (+30) | R² | Prédiction |
 |:---------:|:---------:|:---------:|:---------:|:---------:|:---------:|:---------:|
-| **0** |  |  m |  m |  m |  | ![](./img/rv4/pred_k7_lambd0.0.png) |
-| **0.2** |  |  m |  m |  m |  | ![](./img/rv4/pred_k7_lambd0.2.png) |
-| **0.4** |  |  m |  m |  m |  | ![](./img/rv4/pred_k7_lambd0.4.png) |
-| **0.6** |  |  m |  m |  m |  | ![](./img/rv4/pred_k7_lambd0.6.png) |
-| **0.8** |  |  m |  m |  m |  | ![](./img/rv4/pred_k7_lambd0.8.png) |
-| **1** |  |  m |  m |  m |  | ![](./img/rv4/pred_k7_lambd1.0.png) |
+| **0** | 5.4 | 2.7 m | 5.5 m | 21.0 m | 0.32 | ![](./img/rv4/pred_k7_lambd0.0.png) |
+| **0.2** | 3.8 | 1.7 m | 3.5 m | 15.3 m | 0.66 | ![](./img/rv4/pred_k7_lambd0.2.png) |
+| **0.4** | 3.8 | 1.7 m | 3.4 m | 15.3 m | 0.67 | ![](./img/rv4/pred_k7_lambd0.4.png) |
+| **0.6** | 3.7 | 1.7 m | 3.4 m | 15.1 m | 0.67 | ![](./img/rv4/pred_k7_lambd0.6.png) |
+| **0.8** | 3.7 | 1.6 m | 3.4 m | 15.5 m | 0.68 | ![](./img/rv4/pred_k7_lambd0.8.png) |
+| **1** | 4.0 | 1.7 m | 3.6 m | 18.0 m | 0.62 | ![](./img/rv4/pred_k7_lambd1.0.png) |
 
 \
 **8-NN**
 | $\lambda$ | RMSE | MAE (-10) | MAE (10-30) | MAE (+30) | R² | Prédiction |
 |:---------:|:---------:|:---------:|:---------:|:---------:|:---------:|:---------:|
-| **0** |  |  m |  m |  m |  | ![](./img/rv4/pred_k8_lambd0.0.png) |
-| **0.2** |  |  m |  m |  m |  | ![](./img/rv4/pred_k8_lambd0.2.png) |
-| **0.4** |  |  m |  m |  m |  | ![](./img/rv4/pred_k8_lambd0.4.png) |
-| **0.6** |  |  m |  m |  m |  | ![](./img/rv4/pred_k8_lambd0.6.png) |
-| **0.8** |  |  m |  m |  m |  | ![](./img/rv4/pred_k8_lambd0.8.png) |
-| **1** |  |  m |  m |  m |  | ![](./img/rv4/pred_k8_lambd1.0.png) |
+| **0** | 5.3 | 2.7 m | 5.5 m | 21.0 m | 0.33 | ![](./img/rv4/pred_k8_lambd0.0.png) |
+| **0.2** | 3.8 | 1.7 m | 3.4 m | 15.6 m | 0.66 | ![](./img/rv4/pred_k8_lambd0.2.png) |
+| **0.4** | 3.8 | 1.7 m | 3.4 m | 15.6 m | 0.67 | ![](./img/rv4/pred_k8_lambd0.4.png) |
+| **0.6** | 3.8 | 1.7 m | 3.4 m | 15.6 m | 0.67 | ![](./img/rv4/pred_k8_lambd0.6.png) |
+| **0.8** | 3.7 | 1.6 m | 3.4 m | 15.9 m | 0.67 | ![](./img/rv4/pred_k8_lambd0.8.png) |
+| **1** | 4.0 | 1.7 m | 3.6 m | 18.3 m | 0.62 | ![](./img/rv4/pred_k8_lambd1.0.png) |
 
 \
 **9-NN**
