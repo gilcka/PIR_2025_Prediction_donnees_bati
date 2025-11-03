@@ -134,3 +134,21 @@ On obtient les résultats suivants :
 | **0.6** | 3.8 | 1.7 m | 3.4 m | 16.2 m | 0.67 | ![](./img/rv4/pred_k10_lambd0.6.png) |
 | **0.8** | 3.8 | 1.7 m | 3.5 m | 16.7 m | 0.66 | ![](./img/rv4/pred_k10_lambd0.8.png) |
 | **1** | 4.1 | 1.7 m | 3.7 m | 19.0 m | 0.61 | ![](./img/rv4/pred_k10_lambd1.0.png) |
+
+\
+En analysant les résultats avec les valeurs de $k$ les plus pertinentes (entre 3 et 7 d'après un précédent calcul), on observe que :
+* pour $\lambda$ = 0 : la prédiction est mauvaise (R² entre 0.2 et 0.3), ce qui n'est pas étonnant car la proximité géographique des bâtiments n'est pas prise en compte, seulement la surface ; or on suppose que c'est parce que 2 bâtiments sont proches géographiquement qu'ils auront une hauteur similaire ;
+
+* en augmentant la valeur de $\lambda$, la prédiction s'améliore : elle est la meilleure avec $\lambda$ = 0.8 pour les bâtiments de moins de 30 m de haut, et $\lambda$ = 0.6 pour les autres ;
+
+* pour $\lambda$ = 1 : on retrouve une distance qui ne prend en compte que la proximité géographique, et on constate que la qualité de la prédiction diminue un peu.
+
+Finalement, on retient que la prise en compte de la surface des bâtiments permet d'améliorer la prédiction, dans la mesure où le poids de cette surface est faible par rapport aux coordonnées géographiques qui restent un critère de similarité plus fiable.\
+\
+Pour les bâtiments de - de 10 m de haut : une pondération avec 80% coordonnées / 20% surface permet une réduction de MAE d'environ 10 cm sur 2 m.\
+Pour les bâtiments de 10 à 30 m de haut : une pondération avec 80% coordonnées / 20% surface permet une réduction de MAE d'environ 20 cm sur 3.5 m.\
+Pour les bâtiments de + de 30 m de haut : une pondération avec 60% coordonnées / 40% surface permet une réduction de MAE d'environ 3 m sur 17 m.\
+\
+Cela ne représente cependant qu'une amélioration légère de la prédiction : de l'ordre de 5% dans les 2 premiers cas, et 15% pour le 3ème.
+
+## 2. Prédiction du nombre de logements
