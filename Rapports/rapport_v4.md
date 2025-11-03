@@ -117,20 +117,20 @@ On obtient les résultats suivants :
 **9-NN**
 | $\lambda$ | RMSE | MAE (-10) | MAE (10-30) | MAE (+30) | R² | Prédiction |
 |:---------:|:---------:|:---------:|:---------:|:---------:|:---------:|:---------:|
-| **0** |  |  m |  m |  m |  | ![](./img/rv4/pred_k9_lambd0.0.png) |
-| **0.2** |  |  m |  m |  m |  | ![](./img/rv4/pred_k9_lambd0.2.png) |
-| **0.4** |  |  m |  m |  m |  | ![](./img/rv4/pred_k9_lambd0.4.png) |
-| **0.6** |  |  m |  m |  m |  | ![](./img/rv4/pred_k9_lambd0.6.png) |
-| **0.8** |  |  m |  m |  m |  | ![](./img/rv4/pred_k9_lambd0.8.png) |
-| **1** |  |  m |  m |  m |  | ![](./img/rv4/pred_k9_lambd1.0.png) |
+| **0** | 5.3 | 2.7 m | 5.4 m | 20.9 m | 0.34 | ![](./img/rv4/pred_k9_lambd0.0.png) |
+| **0.2** | 3.8 | 1.7 m | 3.4 m | 15.8 m | 0.66 | ![](./img/rv4/pred_k9_lambd0.2.png) |
+| **0.4** | 3.8 | 1.7 m | 3.4 m | 15.8 m | 0.67 | ![](./img/rv4/pred_k9_lambd0.4.png) |
+| **0.6** | 3.8 | 1.7 m | 3.4 m | 15.9 m | 0.67 | ![](./img/rv4/pred_k9_lambd0.6.png) |
+| **0.8** | 3.8 | 1.6 m | 3.4 m | 16.4 m | 0.67 | ![](./img/rv4/pred_k9_lambd0.8.png) |
+| **1** | 4.1 | 1.7 m | 3.6 m | 18.7 m | 0.62 | ![](./img/rv4/pred_k9_lambd1.0.png) |
 
 \
 **10-NN**
 | $\lambda$ | RMSE | MAE (-10) | MAE (10-30) | MAE (+30) | R² | Prédiction |
 |:---------:|:---------:|:---------:|:---------:|:---------:|:---------:|:---------:|
-| **0** |  |  m |  m |  m |  | ![](./img/rv4/pred_k10_lambd0.0.png) |
-| **0.2** |  |  m |  m |  m |  | ![](./img/rv4/pred_k10_lambd0.2.png) |
-| **0.4** |  |  m |  m |  m |  | ![](./img/rv4/pred_k10_lambd0.4.png) |
-| **0.6** |  |  m |  m |  m |  | ![](./img/rv4/pred_k10_lambd0.6.png) |
-| **0.8** |  |  m |  m |  m |  | ![](./img/rv4/pred_k10_lambd0.8.png) |
-| **1** |  |  m |  m |  m |  | ![](./img/rv4/pred_k10_lambd1.0.png) |
+| **0** | 5.3 | 2.6 m | 5.4 m | 20.8 m | 0.35 | ![](./img/rv4/pred_k10_lambd0.0.png) |
+| **0.2** | 3.8 | 1.7 m | 3.4 m | 16.1 m | 0.66 | ![](./img/rv4/pred_k10_lambd0.2.png) |
+| **0.4** | 3.8 | 1.7 m | 3.4 m | 16.1 m | 0.66 | ![](./img/rv4/pred_k10_lambd0.4.png) |
+| **0.6** | 3.8 | 1.7 m | 3.4 m | 16.2 m | 0.67 | ![](./img/rv4/pred_k10_lambd0.6.png) |
+| **0.8** | 3.8 | 1.7 m | 3.5 m | 16.7 m | 0.66 | ![](./img/rv4/pred_k10_lambd0.8.png) |
+| **1** | 4.1 | 1.7 m | 3.7 m | 19.0 m | 0.61 | ![](./img/rv4/pred_k10_lambd1.0.png) |
