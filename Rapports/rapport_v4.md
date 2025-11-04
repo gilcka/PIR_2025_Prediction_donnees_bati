@@ -1,6 +1,6 @@
 # Rapport d'avancement - 4ème semaine
 
-Pendant cette 4ème semaine de projet, nous tentons d'améliorer la prise en compte de la surface des bâtiments dans la prédiction, et nous nous intéressons à un nouvel attribut à prédire : le nombre de logements.
+Pendant cette 4ème semaine de projet, nous tentons d'améliorer la prise en compte de la surface des bâtiments dans la prédiction.
 
 ## 1. Création d'une nouvelle mesure de distance
 
@@ -150,5 +150,3 @@ Pour les bâtiments de 10 à 30 m de haut : une pondération avec 80% coordonné
 Pour les bâtiments de + de 30 m de haut : une pondération avec 60% coordonnées / 40% surface permet une réduction de MAE d'environ 3 m sur 17 m.\
 \
 Cela ne représente cependant qu'une amélioration légère de la prédiction : de l'ordre de 5% dans les 2 premiers cas, et 15% pour le 3ème.
-
-## 2. Prédiction du nombre de logements
