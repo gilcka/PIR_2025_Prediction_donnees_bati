@@ -20,6 +20,8 @@ Nous en avons profité pour rendre les résultats plus exploitables, en :
 * découpant les histogrammes en 60 intervalles pour les rendre plus précis (et étudier concrètement l'influence du facteur $\lambda$) ;
 * distinguant 3 valeurs différentes de MAE selon la hauteur des bâtiments : basse (- 10 m), moyenne (10 - 30 m) et haute (+ 30 m).
 
+## 2. Résultats
+
 On obtient les résultats suivants :
 
 | **Histogramme réel** | ![](./img/rv4/ref.png) |
