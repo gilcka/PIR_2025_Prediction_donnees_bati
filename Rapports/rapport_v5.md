@@ -137,7 +137,6 @@ On obtient les résultats suivants :
 | **0.6** |  |  logts |  logts |  logts |  | ![](./img/rv5/pred_k10_lambd0.6.png) |
 | **0.8** |  |  logts |  logts |  logts |  | ![](./img/rv5/pred_k10_lambd0.8.png) |
 | **1** |  |  logts |  logts |  logts |  | ![](./img/rv5/pred_k10_lambd1.0.png) |
-\
 
 Contrairement à la prédiction de la hauteur, on constate que l'influence du facteur $\lambda$ est faible car nous obtenons des résultats très similaires quelle que soit sa valeur, sauf pour $\lambda = 0$ et $\lambda = 1$ où la prédiction est moins bonne.\
 On constate cependant que la qualité du résultat obtenu s'améliore légèrement mais continuellement en augmentant le nombre de voisins ; bien que la hausse du coefficient R² ne prenne que très peu en compte les bâtiments avec beaucoup de logements car très minoritaires comparés aux logements individuels dans notre jeu de données (est de Paris).\
