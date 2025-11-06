@@ -9,7 +9,7 @@ from sklearn.model_selection import train_test_split
 
 
 shp_file = "couches/quimper/bat_resi_complet_svxy_quimper.shp"
-BD_complet = gpd.read_file(shp_file).sample(frac=0.1, random_state=42)
+BD_complet = gpd.read_file(shp_file)
 
 # Copie des données utiles de la couche
 lst_id = list(BD_complet["ID"])
@@ -27,7 +27,7 @@ for i in range(N):
     else: # 80% de proba d'être dans le jeu d'entraînement
         lst_train.append( list(lst_data[i]) )"""
         
-lst_train, lst_test, id_train, id_test = train_test_split(lst_data, lst_id, test_size = 0.2, train_size = 0.8, random_state = 42)
+lst_train, lst_test, id_train, id_test = train_test_split(lst_data, lst_id, test_size = 0.02, train_size = 0.98, random_state = 42)
 lst_train, lst_test, id_train, id_test = list(lst_train), list(lst_test), list(id_train), list(id_test)
 for l in lst_test:
     l[-1] = np.nan # suppression des valeurs à prédire
@@ -51,7 +51,6 @@ list_MAE_3 = []
 list_MAE_tot = []
 
 lambda_values = [0, 0.1, 0.15, 0.2, 0.25, 0.3, 0.4, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 1]
-# lambda_values = [0, 0.95, 1]
 
 for lambda_val in lambda_values :
     lst_pred = []
@@ -121,12 +120,12 @@ plt.vlines(lambda_min, 0.5, min_MAE, color = "r", linestyles = 'dotted')
 plt.text(0, min_MAE, f'{min_MAE:.2f}', 
          color='red', fontsize=10, fontweight='bold',
          verticalalignment='bottom', horizontalalignment='right')
-plt.text(lambda_min, 0.55, f'{lambda_min:.2f}', 
+plt.text(lambda_min, 0.5, f'{lambda_min:.2f}', 
          color='red', fontsize=10, fontweight='bold',
          verticalalignment='bottom', horizontalalignment='right')
 
 plt.xlim((0,1))
-plt.ylim((0.5, 1.2))
+plt.ylim((0.5, 1))
 
 plt.title("Estimation du Lambda optimal (k = 5)")
 plt.xlabel("Lambda")
