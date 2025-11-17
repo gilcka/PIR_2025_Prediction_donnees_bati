@@ -4,9 +4,9 @@ import matplotlib.pyplot as plt
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import r2_score
 from sklearn.model_selection import train_test_split
-from rename import rename
+from code_v7_rf_rename import rename
 
-shp_file = "couches/paris-est/bat_resi_complet_svxy_paris_est.shp"
+shp_file = "couches/quimper/bat_resi_complet_svxy_quimper.shp"
 BD_complet = gpd.read_file(shp_file)
 
 # Copie des données utiles de la couche
@@ -14,6 +14,7 @@ lst_id = list(BD_complet["ID"])
 lst_X = np.array(BD_complet[["NATURE", "USAGE1", "LEGER", "DATE_APP", "s"]])
 lst_Y = np.array(BD_complet[["HAUTEUR"]])
 rename(lst_X)
+BD_complet['ERR_HT'] = None
 
 # Préparation des jeux de données
 N = len(lst_X) # nombre total de bâtiments
@@ -49,6 +50,7 @@ for j in range(N_test):
     bat_index = lst_id.index(id_test[j])
     val_reel = lst_Y[bat_index][0]
     lst_reel.append(val_reel)
+    BD_complet.loc[bat_index, 'ERR_HT'] = np.abs(val_pred - val_reel) # ajout dans la couche
     # print(id_test[j], '| Préd :', val_pred, '| Réel :', val_reel)
     sum_MSE += (val_pred - val_reel) ** 2
     if val_reel <= 10:
@@ -86,11 +88,13 @@ print(f"MAE : {MAE_tot:.2f} m")
 print(f"R2 : {R2:.2f}")
 print("")
 
+BD_complet.to_file("rf_quimper_err_hauteur.gpkg") # export GPKG
+
 plt.figure()
 plt.hist(lst_reel, color='g', bins=[i for i in range(30)], edgecolor='k', alpha=0.8, label="Réalité")
 plt.hist(lst_pred, bins=[i for i in range(30)], edgecolor='k', alpha=0.8, label="Prédiction")
 plt.yscale('log')
-plt.title("Prédiction de l'attribut HAUTEUR à Paris-Est (résidentiel)")
+plt.title("Prédiction de l'attribut HAUTEUR à Quimper (résidentiel)")
 plt.xlabel("Hauteur (m)")
 plt.ylabel("Fréquence")
 plt.grid()
