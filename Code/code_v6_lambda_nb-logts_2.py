@@ -33,9 +33,9 @@ for s in seeds:
     # KNN
             
     def custom_distance(x, y, missing_values = np.nan):
-        x1, y1, s1 = x[0], x[1], x[3]
-        x2, y2, s2 = y[0], y[1], y[3]
-        return np.sqrt( lambda_val * ((x1-x2)**2 + (y1-y2)**2) + (1-lambda_val) * (s1-s2)**2 )
+        x1, y1, v1 = x[0], x[1], x[3]
+        x2, y2, v2 = y[0], y[1], y[3]
+        return np.sqrt( lambda_val * ((x1-x2)**2 + (y1-y2)**2) + (1-lambda_val) * (v1-v2)**2 )
     
     
     ## Prédiction
