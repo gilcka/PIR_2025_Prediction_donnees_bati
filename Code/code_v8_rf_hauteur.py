@@ -6,7 +6,7 @@ from sklearn.neighbors import NearestNeighbors
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import r2_score
-from code_v7_rf_rename import rename
+from code_v8_rf_rename import rename
 
 shp_file = "couches/quimper/bati_complet_quimper.shp"
 BD_complet = gpd.read_file(shp_file)
@@ -18,6 +18,8 @@ BD_complet['X'] = BD_complet['geometry'].centroid.x
 BD_complet['Y'] = BD_complet['geometry'].centroid.y
 # Calcul de la surface
 BD_complet['SURFACE'] = BD_complet['geometry'].area
+# Sauvegarde des noms de colonnes
+BD_columns = list(BD_complet.columns)
 # Calcul des plus proches voisins
 n_voisins = 6
 lst_id = np.array(BD_complet['ID'])
@@ -25,17 +27,17 @@ lst_coords = np.array(BD_complet[['X', 'Y']])
 neigh = NearestNeighbors(n_neighbors=n_voisins)
 neigh.fit(lst_coords)
 nn_dist, nn_id = neigh.kneighbors(lst_coords, return_distance=True)
-index = pd.DataFrame(np.array(BD_complet.index).reshape(len(BD_complet), 1), columns = ['Index'])
-BD_complet = pd.DataFrame(np.hstack((index.to_numpy(), BD_complet.to_numpy())))
-print(len(BD_complet))
+index = np.array(BD_complet.index).reshape(len(BD_complet), 1)
+columns = [['']]
+BD_complet = pd.DataFrame(np.hstack((index, BD_complet)), columns=['INDEX'] + BD_columns)
 vect = BD_complet[['NATURE', 'USAGE1', 'LEGER', 'DATE_APP', 'SURFACE']].to_numpy()
 
 dist = nn_dist[:, 0].reshape(len(vect), 1)
 vect = np.hstack((vect, dist))
 
-for k in range (n_voisins-1) :
-    id_ = pd.DataFrame(nn_id[:, k+1], columns = ['Index'])
-    df_merged = id_.merge(BD_complet, on='Index', how='inner')
+for k in range(n_voisins-1):
+    id_ = pd.DataFrame(nn_id[:, k+1], columns = ['INDEX'])
+    df_merged = id_.merge(BD_complet, on='INDEX', how='left')
     data_k = df_merged[['NATURE', 'USAGE1', 'LEGER', 'DATE_APP', 'SURFACE']].to_numpy()
     vect = np.hstack((vect, data_k)) 
     dist_k = nn_dist[:, k+1].reshape(len(vect), 1)
@@ -44,7 +46,6 @@ for k in range (n_voisins-1) :
 
 # Copie des données utiles de la couche
 
-# lst_X = np.array(BD_complet[["NATURE", "USAGE1", "LEGER", "DATE_APP", "s"]])
 lst_Y = np.array(BD_complet[["HAUTEUR"]])
 rename(vect)
 BD_complet['ERR_HT'] = None
