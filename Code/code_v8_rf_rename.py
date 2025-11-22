@@ -1,5 +1,3 @@
-import numpy as np
-
 def rename(X):
     for l in X:
         for i in range(6):

@@ -8,11 +8,12 @@ from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import r2_score
 from code_v8_rf_rename import rename
 
-shp_file = "couches/quimper/bati_complet_quimper.shp"
+shp_file = "couches/quimper/bati_complet_quimper.gpkg"
 BD_complet = gpd.read_file(shp_file)
 for i in range(len(BD_complet)):
     if np.isnan(BD_complet.loc[i, 'HAUTEUR']):
         BD_complet = BD_complet.drop(i, axis=0)
+BD_complet.index = range(30452)
 # Construction des centroïdes
 BD_complet['X'] = BD_complet['geometry'].centroid.x
 BD_complet['Y'] = BD_complet['geometry'].centroid.y
@@ -28,9 +29,8 @@ neigh = NearestNeighbors(n_neighbors=n_voisins)
 neigh.fit(lst_coords)
 nn_dist, nn_id = neigh.kneighbors(lst_coords, return_distance=True)
 index = np.array(BD_complet.index).reshape(len(BD_complet), 1)
-columns = [['']]
 BD_complet = pd.DataFrame(np.hstack((index, BD_complet)), columns=['INDEX'] + BD_columns)
-vect = BD_complet[['NATURE', 'USAGE1', 'LEGER', 'DATE_APP', 'SURFACE']].to_numpy()
+vect = np.array(BD_complet[['NATURE', 'USAGE1', 'LEGER', 'DATE_APP', 'SURFACE']])
 
 dist = nn_dist[:, 0].reshape(len(vect), 1)
 vect = np.hstack((vect, dist))
@@ -38,7 +38,7 @@ vect = np.hstack((vect, dist))
 for k in range(n_voisins-1):
     id_ = pd.DataFrame(nn_id[:, k+1], columns = ['INDEX'])
     df_merged = id_.merge(BD_complet, on='INDEX', how='left')
-    data_k = df_merged[['NATURE', 'USAGE1', 'LEGER', 'DATE_APP', 'SURFACE']].to_numpy()
+    data_k = np.array(df_merged[['NATURE', 'USAGE1', 'LEGER', 'DATE_APP', 'SURFACE']])
     vect = np.hstack((vect, data_k)) 
     dist_k = nn_dist[:, k+1].reshape(len(vect), 1)
     vect = np.hstack((vect, dist_k))
