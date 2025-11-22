@@ -44,7 +44,7 @@ On obtient les histogrammes suivants :
 | **Prédiction HAUTEUR (Paris)** | ![](./img/rv7/hist_knn_hauteur_paris-est_MAE=1.8.png) | ![](./img/rv7/hist_rf_hauteur_paris-est_MAE=3.5.png) |
 | **MAE (Paris)** | 1.8 m | 3.5 m |
 ||||
-| **Prédiction HAUTEUR (Quimper)** | ![](./img/rv7/hist_knn_hauteur_quimper_MAE=1.0.png) | ![](./img/rv7/hist_rf_hauteur_quimper_MAE=1.65.png) |
+| **Prédiction HAUTEUR (Quimper)** | ![](./img/rv7/hist_knn_hauteur_quimper_MAE=1.2.png) | ![](./img/rv7/hist_rf_hauteur_quimper_MAE=1.65.png) |
 | **MAE (Quimper)** | 1.0 m | 1.7 m |
 
 Nous avons réalisé 2 visualisations sur le centre-ville de Quimper pour observer la différence de qualité de la prédiction entre les 2 méthodes :
