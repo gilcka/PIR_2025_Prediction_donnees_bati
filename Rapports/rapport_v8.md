@@ -29,5 +29,10 @@ Voici les résultats obtenus pour la prédiction de la hauteur :
 | RandomForest | ![](./img/rv8/rf_quimper_total.png) | 1.72 |
 | Mix | ![](./img/rv8/mix_quimper_total.png) | 1.46 |
 
-On observe que cette nouvelle méthode permet de réduire la MAE sur la ville de Quimper d'environ 20 à 30 cm par rapport aux K-NN et RandomForest seuls.\
+**/!\ ERREUR DE TITRE :** concerne tout le bâti (pas que résidentiel)\
+\
+On observe que cette nouvelle méthode permet de réduire la MAE sur la ville de Quimper d'environ 20 à 30 cm par rapport aux K-NN et RandomForest seuls, ce qui est intéressant sans pour autant représenter un atout significatif (amélioration de précision de l'ordre de 5% pour une maison individuelle).\
+\
+La méthode semble en revanche moins performante pour la prédiction de hauteur des bâtiments très bas (- de 2 m) et très hauts (+ de 20 m) de la ville.\
+\
 Il faudrait tester la méthode sur la ville de Paris pour vérifier si nous pouvons obtenir des améliorations similaires, avec de plus grandes densité et variété de bâtiments.
