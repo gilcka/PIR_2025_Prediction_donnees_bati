@@ -58,18 +58,16 @@ enc_us1_out = enc.fit_transform(vect_us1).toarray()
 vect_leg = vect[:, 2].reshape(len(vect), 1)
 enc_leg_out = enc.fit_transform(vect_leg).toarray()
 
-for n in range(n_voisins):  
-    for i in range(len(vect)):
-        vect[i, 0+6*n] = enc_nat_out[i]
-        vect[i, 1+6*n] = enc_us1_out[i]
-        vect[i, 2+6*n] = enc_leg_out[i]
-
+col = enc_nat_out.shape[1] + enc_us1_out.shape[1] + enc_leg_out.shape[1]
+vect = np.hstack((enc_nat_out, enc_us1_out, enc_leg_out, vect[:, col:]))
+for n in range(n_voisins-1):
+    
     for l in vect:
-        date_app = l[3+6*n]
+        date_app = l[col*(n+1)]
         if date_app != None:
-            l[3+6*n] = int(date_app[0:4])
+            l[col*(n+1)] = int(date_app[0:4])
         else:
-            l[3+6*n] = 0
+            l[col*(n+1)] = 0
     
 BD_complet['ERR_HT'] = None
 
