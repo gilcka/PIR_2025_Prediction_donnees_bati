@@ -8,7 +8,7 @@ from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import r2_score
 from sklearn.preprocessing import OneHotEncoder
 
-shp_file = "couches/quimper/bati_complet_quimper.shp"
+shp_file = "couches/paris-est/bati_total_paris-est.gpkg"
 BD_complet = gpd.read_file(shp_file)
 for i in range(len(BD_complet)):
     if np.isnan(BD_complet.loc[i, 'HAUTEUR']):
@@ -30,45 +30,71 @@ neigh.fit(lst_coords)
 nn_dist, nn_id = neigh.kneighbors(lst_coords, return_distance=True)
 index = np.array(BD_complet.index).reshape(len(BD_complet), 1)
 BD_complet = pd.DataFrame(np.hstack((index, BD_complet)), columns=['INDEX'] + BD_columns)
-vect = np.array(BD_complet[['NATURE', 'USAGE1', 'LEGER', 'DATE_APP', 'SURFACE']])
-
-dist = nn_dist[:, 0].reshape(len(vect), 1)
-vect = np.hstack((vect, dist))
-
-for k in range(n_voisins-1):
-    id_ = pd.DataFrame(nn_id[:, k+1], columns = ['INDEX'])
-    df_merged = id_.merge(BD_complet, on='INDEX', how='left')
-    data_k = np.array(df_merged[['NATURE', 'USAGE1', 'LEGER', 'DATE_APP', 'SURFACE']])
-    vect = np.hstack((vect, data_k)) 
-    dist_k = nn_dist[:, k+1].reshape(len(vect), 1)
-    vect = np.hstack((vect, dist_k))
-
-
-# Copie des données utiles de la couche
-lst_Y = np.array(BD_complet[["HAUTEUR"]])
+data_0 = np.array(BD_complet[['NATURE', 'USAGE1', 'LEGER', 'DATE_APP', 'SURFACE']])
+columns_final = [] # nom des colonnes après construction du vecteur 
 
 # Encodage one hot
 enc = OneHotEncoder(handle_unknown='ignore')
-vect_nat = vect[:, 0].reshape(len(vect), 1)
+vect_nat = data_0[:, 0].reshape(len(data_0), 1)
 enc_nat_out = enc.fit_transform(vect_nat).toarray()
+for i in range(enc_nat_out.shape[1]):
+    columns_final.append(f'NATURE_{i}')
 
-vect_us1 = vect[:, 1].reshape(len(vect), 1)
+vect_us1 = data_0[:, 1].reshape(len(data_0), 1)
 enc_us1_out = enc.fit_transform(vect_us1).toarray()
+for i in range(enc_us1_out.shape[1]):
+    columns_final.append(f'USAGE1_{i}')
 
-vect_leg = vect[:, 2].reshape(len(vect), 1)
+vect_leg = data_0[:, 2].reshape(len(data_0), 1)
 enc_leg_out = enc.fit_transform(vect_leg).toarray()
+for i in range(enc_leg_out.shape[1]):
+    columns_final.append(f'LEGER_{i}')
 
-col = enc_nat_out.shape[1] + enc_us1_out.shape[1] + enc_leg_out.shape[1]
-vect = np.hstack((enc_nat_out, enc_us1_out, enc_leg_out, vect[:, col:]))
-for n in range(n_voisins-1):
+dist = nn_dist[:, 0].reshape(len(data_0), 1)
+vect = np.hstack((enc_nat_out, enc_us1_out, enc_leg_out, data_0[:, 3:], dist))
+
+# Modification format DATE_APP
+for l in vect:
+    date_app = l[-3]
+    if date_app != None:
+        l[-3] = int(date_app[0:4])
+    else:
+        l[-3] = 0
+        
+columns_final += ['DATE_APP', 'SURFACE', 'DIST']
+
+for k in range(1, n_voisins):
+    id_ = pd.DataFrame(nn_id[:, k], columns = ['INDEX'])
+    df_merged = id_.merge(BD_complet, on='INDEX', how='left')
+    data_k = np.array(df_merged[['NATURE', 'USAGE1', 'LEGER', 'DATE_APP', 'SURFACE']])
+    
+    vect_nat = data_k[:, 0].reshape(len(data_k), 1)
+    enc_nat_out = enc.fit_transform(vect_nat).toarray()
+    for i in range(enc_nat_out.shape[1]):
+        columns_final.append(f'NATURE_{i}')
+    vect_us1 = data_k[:, 1].reshape(len(data_k), 1)
+    enc_us1_out = enc.fit_transform(vect_us1).toarray()
+    for i in range(enc_us1_out.shape[1]):
+        columns_final.append(f'USAGE1_{i}')
+    vect_leg = data_k[:, 2].reshape(len(data_k), 1)
+    enc_leg_out = enc.fit_transform(vect_leg).toarray()
+    for i in range(enc_leg_out.shape[1]):
+        columns_final.append(f'LEGER_{i}')
+    
+    dist_k = nn_dist[:, k].reshape(len(vect), 1)
+    vect = np.hstack((vect, enc_nat_out, enc_us1_out, enc_leg_out, data_0[:, 3:], dist_k))
     
     for l in vect:
-        date_app = l[col*(n+1)]
+        date_app = l[-3]
         if date_app != None:
-            l[col*(n+1)] = int(date_app[0:4])
+            l[-3] = int(date_app[0:4])
         else:
-            l[col*(n+1)] = 0
-    
+            l[-3] = 0
+            
+    columns_final += ['DATE_APP', 'SURFACE', 'DIST']
+
+# Copie des données utiles de la couche
+lst_Y = np.array(BD_complet[["HAUTEUR"]])
 BD_complet['ERR_HT'] = None
 
 # Préparation des jeux de données
@@ -146,13 +172,13 @@ print("")
 BD_complet_gdf = gpd.GeoDataFrame(
     BD_complet, geometry=BD_complet.geometry, crs="EPSG:2154"
 )
-BD_complet_gdf.to_file("mix_quimper_err_hauteur.gpkg") # export GPKG
+BD_complet_gdf.to_file("mix_paris-est_err_hauteur.gpkg") # export GPKG
 
 plt.figure()
-plt.hist(lst_reel, color='g', bins=[i for i in range(30)], edgecolor='k', alpha=0.8, label="Réalité")
-plt.hist(lst_pred, bins=[i for i in range(30)], edgecolor='k', alpha=0.8, label="Prédiction")
+plt.hist(lst_reel, color='g', bins=[i for i in range(100)], edgecolor='k', alpha=0.8, label="Réalité")
+plt.hist(lst_pred, bins=[i for i in range(100)], edgecolor='k', alpha=0.8, label="Prédiction")
 plt.yscale('log')
-plt.title("Prédiction de l'attribut HAUTEUR à Quimper")
+plt.title("Prédiction de l'attribut HAUTEUR à Paris")
 plt.xlabel("Hauteur (m)")
 plt.ylabel("Fréquence")
 plt.grid()
@@ -162,9 +188,9 @@ plt.savefig("plot2.png")
 plt.figure()
 importances = regressor.feature_importances_
 std = np.std([tree.feature_importances_ for tree in regressor.estimators_], axis=0)
-forest_importances = pd.Series(importances, index=['NATURE', 'USAGE1', 'LEGER', 'DATE_APP', 'SURFACE', 'DIST']*6)
+forest_importances = pd.Series(importances, index=columns_final)
 fig, ax = plt.subplots()
 forest_importances.plot.bar(yerr=std, ax=ax)
-ax.set_title("Feature importances using MDI")
-ax.set_ylabel("Mean decrease in impurity")
+ax.set_title("Importance des attributs (MDI)")
+ax.set_ylabel("MDI")
 fig.tight_layout()
