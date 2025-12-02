@@ -63,14 +63,14 @@ for lambda_val in lambda_opt :
     N_test_1, N_test_2, N_test_3, N_test_tot = 0, 0, 0, 0
     for j in range(N_test):
         lst_local.append(list(lst_test[j]))
-        imputer = KNNImputer(n_neighbors=5, weights="uniform", metric=custom_distance)
+        imputer = KNNImputer(n_neighbors=6, weights="uniform", metric=custom_distance)
         lst_out = imputer.fit_transform(lst_local)
         val_pred = lst_out[-1][-1]
         lst_pred.append(val_pred)
         bat_index = lst_id.index(id_test[j])
         val_reel = lst_data[bat_index][-1]
         lst_reel.append(val_reel)
-        BD_complet.loc[bat_index, 'ERR_HT'] = np.abs(val_pred - val_reel) # ajout dans la couche
+        BD_complet.loc[bat_index, 'ERR_HT'] = val_pred - val_reel # ajout dans la couche
         # print(id_test[j], '| Préd :', val_pred, '| Réel :', val_reel)
         lst_local.pop()
         sum_MSE += (val_pred - val_reel) ** 2
