@@ -46,20 +46,20 @@ Voici les résultats obtenus pour la prédiction de la hauteur :
 |:-:|:-:|:-:|:-:|
 | **MAE (m)** | 2.7 | 6.2 | 23.2 |
 
-On constate que seul l'attribut $SURFACE$ est très significatif dans le calcul, et que $DATE APP$ a une légère importance suivi de l'$USAGE$.\
+On constate que seul l'attribut $SURFACE$ est très significatif dans le calcul, et que $DATE APP$ a une légère importance suivi de l' $USAGE$.\
 Les autres attributs jouent un rôle quasi-nul dans la prédiction par RandomForest seul.
 
 -----
 
-* Mix **[EN COURS]**
+* Mix
 
 | Histogramme | MAE (m) | FeatureImportances |
 |:-:|:-:|:-:|
-| ![](./img/rv9/mix_paris_total.png) | | ![](./img/rv9/mix_paris_mdi.png) |
+| ![](./img/rv9/mix_paris_total.png) | 3.2 | ![](./img/rv9/mix_paris_mdi.png) |
 
 | Détail | *-10 m* | *10-30 m* | *+30 m* |
 |:-:|:-:|:-:|:-:|
-| **MAE (m)** |  |  |  |
+| **MAE (m)** | 2.4 | 4.9 | 19.8 |
 
 ## 3. Analyse des mauvaises prédictions sur Quimper
 
