@@ -62,6 +62,7 @@ Les autres attributs jouent un rôle quasi-nul dans la prédiction par RandomFor
 | **MAE (m)** | 3.2 | 2.4 | 4.9 | 19.8 |
 
 On constate cette fois-ci que la prédiction réalisée est un peu meilleure qu'avec le RandomForest seul, mais moins bonne qu'avec le K-NN seul, ce qui est plutôt décevant compte tenu de la complexité de la méthode et du temps d'exécution (15 heures contre 6 jours)...\
+On remarque notamment qu'aucun bâtiment n'est prédit avec une hauteur de plus de 50 m de haut, ce qui peut être problématique pour certains quartiers de Paris (et de sa proche banlieue) constitués de tours résidentielles.
 Nous essayerons de réduire le nombre d'arbres et la profondeur maximale pour espérer obtenir de meilleurs résultats.\
 \
 L'importance des attributs est légèrement différente par rapport au RandomForest seul : c'est la distance qui devient la plus significative (ce qui est cohérent avec nos précédentes prédictions sur la hauteur), suivie de la surface au sol et de la date d'apparition.\
