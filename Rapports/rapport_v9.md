@@ -34,7 +34,7 @@ Voici les résultats obtenus pour la prédiction de la hauteur :
 |:-:|:-:|:-:|:-:|
 | **MAE (m)** | 2.0 | 4.0 | 18.8 |
 
-...
+-----
   
 * RandomForest
 
@@ -46,7 +46,10 @@ Voici les résultats obtenus pour la prédiction de la hauteur :
 |:-:|:-:|:-:|:-:|
 | **MAE (m)** | 2.7 | 6.2 | 23.2 |
 
-...
+On constate que seul l'attribut $SURFACE$ est très significatif dans le calcul, et que $DATE APP$ a une légère importance suivi de l'$USAGE$.\
+Les autres attributs jouent un rôle quasi-nul dans la prédiction par RandomForest seul.
+
+-----
 
 * Mix **[EN COURS]**
 
@@ -57,3 +60,22 @@ Voici les résultats obtenus pour la prédiction de la hauteur :
 | Détail | *-10 m* | *10-30 m* | *+30 m* |
 |:-:|:-:|:-:|:-:|
 | **MAE (m)** |  |  |  |
+
+## 3. Analyse des mauvaises prédictions sur Quimper
+
+Nous observons en détail quelques mauvaises prédictions sur la ville de Quimper, pour essayer d'en déterminer les causes.
+
+* Résidence Les Rives du Paludec
+
+![](./img/rv9/rv9_ce_quimper_1.png)
+
+On observe ici une erreur relative positive d'environ 300% sur les bâtiments en longueur (en rouge très foncé) : il s'agit des garages attenant à la résidence.\
+Cette erreur est due à un mauvais renseignement de ces bâtiments dans la BDTOPO : ils sont classés comme ```Résidentiel```, avec un nombre de logements non nul, et un attribut ```HAUTEUR``` lui-même erronné (1.5 m, ce qui est vraisemblablement faux).\
+Les bâtiments de la résidence ont aussi une erreur relative importante (30% à 70%) car ils sont fusionnés en 1 seul bloc dans la BDTOPO, ce qui gonfle artificiellement leur surface au sol et donc leur hauteur prédite.
+
+* Kermoysan
+
+![](./img/rv9/rv9_ce_quimper_2.png)
+
+Ici, au contraire, la hauteur prédite est bien plus basse qu'en réalité : on observe des erreurs relatives de l'ordre de -75% sur les prédictions de ces bâtiments, ce qui est surprenant car il s'agit d'un quartier relativement homogène, où les bâtiments voisins ont des hauteurs réelles et surfaces au sol comparables.\
+Nous n'avons pas réussi à déterminer l'origine de ces écarts si importants (+ de 30 m en absolu).
