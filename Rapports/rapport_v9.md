@@ -26,25 +26,25 @@ Voici les résultats obtenus pour la prédiction de la hauteur :
 
 * K-NN
 
-| Histogramme | MAE (m) |
-|:-:|:-:|
-| ![](./img/rv9/knn_paris_total.png) | 2.7 | 
+| Histogramme |
+|:-:|
+| ![](./img/rv9/knn_paris_total.png) |
 
-| Détail | *-10 m* | *10-30 m* | *+30 m* |
-|:-:|:-:|:-:|:-:|
-| **MAE (m)** | 2.0 | 4.0 | 18.8 |
+| | *Global* | *-10 m* | *10-30 m* | *+30 m* |
+|:-:|:-:|:-:|:-:|:-:|
+| **MAE (m)** | 2.7 | 2.0 | 4.0 | 18.8 |
 
 -----
   
 * RandomForest
 
-| Histogramme | MAE (m) | FeatureImportances |
-|:-:|:-:|:-:|
-| ![](./img/rv9/rf_paris_total_2.png) | 3.8 | ![](./img/rv9/rf_paris_mdi.png) |
+| Histogramme | FeatureImportances |
+|:-:|:-:|
+| ![](./img/rv9/rf_paris_total_2.png) | ![](./img/rv9/rf_paris_mdi.png) |
 
-| Détail | *-10 m* | *10-30 m* | *+30 m* |
-|:-:|:-:|:-:|:-:|
-| **MAE (m)** | 2.7 | 6.2 | 23.2 |
+| | *Global* | *-10 m* | *10-30 m* | *+30 m* |
+|:-:|:-:|:-:|:-:|:-:|
+| **MAE (m)** | 3.8 | 2.7 | 6.2 | 23.2 |
 
 On constate que seul l'attribut $SURFACE$ est très significatif dans le calcul, et que $DATE APP$ a une légère importance suivi de l' $USAGE$.\
 Les autres attributs jouent un rôle quasi-nul dans la prédiction par RandomForest seul.
@@ -53,13 +53,19 @@ Les autres attributs jouent un rôle quasi-nul dans la prédiction par RandomFor
 
 * Mix
 
-| Histogramme | MAE (m) | FeatureImportances |
-|:-:|:-:|:-:|
-| ![](./img/rv9/mix_paris_total.png) | 3.2 | ![](./img/rv9/mix_paris_mdi.png) |
+| Histogramme | FeatureImportances |
+|:-:|:-:|
+| ![](./img/rv9/mix_paris_total.png) | ![](./img/rv9/mix_paris_mdi.png) |
 
-| Détail | *-10 m* | *10-30 m* | *+30 m* |
-|:-:|:-:|:-:|:-:|
-| **MAE (m)** | 2.4 | 4.9 | 19.8 |
+| | *Global* | *-10 m* | *10-30 m* | *+30 m* |
+|:-:|:-:|:-:|:-:|:-:|
+| **MAE (m)** | 3.2 | 2.4 | 4.9 | 19.8 |
+
+On constate cette fois-ci que la prédiction réalisée est un peu meilleure qu'avec le RandomForest seul, mais moins bonne qu'avec le K-NN seul, ce qui est plutôt décevant compte tenu de la complexité de la méthode et du temps d'exécution (15 heures contre 6 jours)...\
+Nous essayerons de réduire le nombre d'arbres et la profondeur maximale pour espérer obtenir de meilleurs résultats.\
+\
+L'importance des attributs est légèrement différente par rapport au RandomForest seul : c'est la distance qui devient la plus significative (ce qui est cohérent avec nos précédentes prédictions sur la hauteur), suivie de la surface au sol et de la date d'apparition.\
+L'usage et la structure (légère ou non) ont un poids plus important dans le calcul qu'avec l'algorithme RandomForest seul.
 
 ## 3. Analyse des mauvaises prédictions sur Quimper
 
