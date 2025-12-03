@@ -17,3 +17,43 @@ Si notre algorithme utilise 6 attributs pour chacun des voisins afin de réalise
 \
 On utilise pour cela le paramètre ```feature_importances``` du RandomForest, qui permet d'indiquer la pondération de chacun des paramètres du calcul avec l'écart-type associé.\
 Nous avons tracé graphiquement cette information dans les prédictions sur Paris.
+
+## 2. Prédiction sur Paris
+
+Nous avons testé l'algorithme KNN+RandomForest sur l'est de Paris, en le comparant avec les résultats obtenus par K-NN et RandomForest seuls :
+
+Voici les résultats obtenus pour la prédiction de la hauteur :
+
+* K-NN
+
+| Histogramme | MAE (m) |
+|:-:|:-:|
+| ![](./img/rv9/knn_paris_total.png) | 2.7 | 
+
+| Détail | *-10 m* | *10-30 m* | *+30 m* |
+|:-:|:-:|:-:|:-:|
+| **MAE (m)** | 2.0 | 4.0 | 18.8 |
+
+...
+  
+* RandomForest
+
+| Histogramme | MAE (m) | FeatureImportances |
+|:-:|:-:|:-:|
+| ![](./img/rv9/rf_paris_total_2.png) | 3.8 | ![](./img/rv9/rf_paris_mdi.png) |
+
+| Détail | *-10 m* | *10-30 m* | *+30 m* |
+|:-:|:-:|:-:|:-:|
+| **MAE (m)** | 2.7 | 6.2 | 23.2 |
+
+...
+
+* Mix **[EN COURS]**
+
+| Histogramme | MAE (m) | FeatureImportances |
+|:-:|:-:|:-:|
+| ![](./img/rv9/mix_paris_total.png) | | ![](./img/rv9/mix_paris_mdi.png) |
+
+| Détail | *-10 m* | *10-30 m* | *+30 m* |
+|:-:|:-:|:-:|:-:|
+| **MAE (m)** |  |  |  |
