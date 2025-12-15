@@ -198,8 +198,38 @@ plt.figure()
 importances = regressor.feature_importances_
 std = np.std([tree.feature_importances_ for tree in regressor.estimators_], axis=0)
 forest_importances = pd.Series(importances, index=columns_final)
+
+# Moyennage entre voisins
+attributs = {}
+for a in range(len(forest_importances)):
+    att = columns_final[a]
+    if att == 'NATURE_Arène ou théâtre antique': # simplification des noms
+        att = 'NATURE_Arène'
+    elif att == 'NATURE_Fort, blockhaus, casemate':
+        att = 'NATURE_Fort'
+    elif att == 'NATURE_Industriel, agricole ou commercial':
+        att = 'NATURE_Indus, agri, commerce'
+    elif att == 'USAGE1_Commercial et services':
+        att = 'USAGE1_Commerce, services'
+    if att in attributs.keys():
+        attributs[att].append((importances[a], std[a]))
+    else:
+        attributs[att] = [(importances[a], std[a])]
+lst_att = list(attributs.keys())
+lst_att.sort()
+importances_mean, std_mean = [], []
+for att in lst_att:
+    sum_imp_a, sum_std_a_2 = 0, 0
+    for i in range(len(attributs[att])):
+        imp_i, std_i = attributs[att][i]
+        sum_imp_a += imp_i
+        sum_std_a_2 += std_i ** 2
+    importances_mean.append( sum_imp_a / len(attributs[att]) )
+    std_mean.append( np.sqrt(sum_std_a_2) )
+forest_importances_mean = pd.Series(importances_mean, index=lst_att)
+
 fig, ax = plt.subplots()
-forest_importances.plot.bar(yerr=std, ax=ax)
+forest_importances_mean.plot.bar(yerr=std_mean, ax=ax)
 ax.set_title("Importance des attributs (MDI)")
 ax.set_ylabel("MDI")
 fig.tight_layout()
