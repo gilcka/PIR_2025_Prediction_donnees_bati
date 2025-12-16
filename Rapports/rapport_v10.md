@@ -28,3 +28,10 @@ Les autres attributs ont un poids quasiment insignifiant dans la prédiction.\
 \
 Voici un tableau récapitulatif des prédictions sur l'est de Paris :
 
+| | Histogramme | MAE globale |
+|:-:|:-:|:-:|
+| **k-NN (+ surface)** | ![](./img/rv9/knn_paris_total.png) | 2.7 m |
+| **RandomForest** | ![](./img/rv9/rf_paris_total_2.png) | 3.8 m |
+| **Mix** | ![](./img/rv10/paris_mix_hauteur_hist.png) | **2.1 m** |
+
+C'est finalement la méthode "mix" entre RandomForest et k-NN qui apparaît comme la plus performante, car elle permet de prédire la hauteur par rapport aux bâtiments les plus proches géographiquement, en particulier ceux dont les caractéristiques intrinsèques sont proches.
