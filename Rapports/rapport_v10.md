@@ -34,4 +34,24 @@ Voici un tableau récapitulatif des prédictions sur l'est de Paris :
 | **RandomForest** | ![](./img/rv9/rf_paris_total_2.png) | 3.8 m |
 | **Mix** | ![](./img/rv10/paris_mix_hauteur_hist.png) | **2.1 m** |
 
+| Détail MAE (m) | *Global* | *-10 m* | *10-30 m* | *+30 m* |
+|:-:|:-:|:-:|:-:|:-:|
+| ***k-NN (+ surface)*** | **2.7** | 2.0 | 4.0 | 18.4 |
+| ***RandomForest*** | **3.8** | 2.7 | 6.3 | 23.2 |
+| ***Mix*** | **2.1** | 1.6 | 3.1 | 15.4 |
+
 C'est finalement la méthode "mix" entre RandomForest et k-NN qui apparaît comme la plus performante, car elle permet de prédire la hauteur par rapport aux bâtiments les plus proches géographiquement, en particulier ceux dont les caractéristiques intrinsèques sont proches.
+
+## 2. Résultats de l'algorithme "mix" sur Quimper
+
+Voici les résultats obtenus pour la ville de Quimper, avec les mêmes paramètres et un résultat différent du rapport v8 où l'algorithme était mal implémenté :
+
+| Histogramme | FeatureImportances |
+|:-:|:-:|
+| ![](./img/rv10/quimper_mix_hauteur_hist.png) | ![](./img/rv10/quimper_mix_hauteur_fi.png) |
+
+| | *Global* | *-10 m* | *10-30 m* | *+30 m* |
+|:-:|:-:|:-:|:-:|:-:|
+| **MAE (m)** | **1.3** | 1.1 | 3.2 | 17.6 |
+
+Là encore, cette méthode est la meilleure pour minimiser la MAE en comparaison avec le **k-NN + surface** seul (1.6 m) et le **RandomForest** seul (1.7 m).
